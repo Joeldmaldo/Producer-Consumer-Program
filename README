@@ -1,0 +1,68 @@
+# Author: Joel Maldonado Rivera
+# Student-ID: 801-14-3804
+# H.W # 1 : Consumer and Producer problem
+# File: README
+
+
+Zip Contents:
+
+The zip folder contains the normal homework files that were requested (mobile.py,server.py, readme) and it also contains
+the newly requested part of the homework which is the quantum_server.py file.
+
+Things to consider when running:
+- I made my mobile.py generate more than one job per user id that was given. One can change the amount of runtimes it genereates for a specific id by changing the valule of the in range for loop located in line 89. 
+- Besides that everything else should run as follows(example):
+		python server.py 4017
+		python mobile.py 2 localhost 4017
+		
+
+
+
+
+
+
+# We create the Mobile.py which will have one thread which will do the following:
+#  1)Concurrently generate random numbers that simulates the time the mobile job will take in the compute server.
+#  2) Send a message for each "job" to the compute server with a mobile ID.
+#     Sleep a short (1 to 5 seconds) random period of time between sends.
+
+# We create server.py which will have two threads that do the following:
+
+
+We define our producer function which will do the following:
+ 
+ 1) It will create a socket object and we will look for the given port argument in order to bind the object
+ 2) Then we will create an infinite loop which will be receiving whatever is sent to the given port.
+ 3) If it receives something we send that we got the job back to the mobile and used the semaphore acquire to protect our global queue
+ 4) After we append the work that was received into our queue we release the semaphore.
+
+
+We define our consumer function which will do the following:
+ 
+ 1) Will use the semaphore acquire to then access the queue 
+ 2) After doing so we use a for loop in order to split each value in the queue into mobile_id(m_id) and it's runtime.
+ 3) Then we release the semaphore
+ 4) We check if the ID already exists in our hash, if it doesn't the id will have the runtime it came with
+ 5) If the ID already exists the new runtime is added to the total runtime that's already in the hash.
+ 6) We have our global variable Nth which will allow the consumer to be able to run only a limited amount of times
+ 7) When Nth reaches 0 the hash information will be printed out as requested
+ 
+
+
+
+# References for work:
+
+  1)https://docs.python.org/2/library/threading.html
+  2)http://thomas-cokelaer.info/tutorials/python/module_threading.html
+  3)https://pymotw.com/2/socket/udp.html
+  4)https://www.networkcomputing.com/applications/python-network-programming-handling-socket-errors/1384050408
+  5)https://www.8bitavenue.com/2016/11/python-mutex-example/
+  6)https://self-learning-java-tutorial.blogspot.com/2015/12/python-bounded-semaphore.html
+
+
+
+# Sudent discussion / This involves the students that I asked questions too or interacted with in this porject:
+1) Alejandro Vega
+2) Dariel Ramirez
+3) Roberto Lopez
+
